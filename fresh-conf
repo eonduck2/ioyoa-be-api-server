@@ -1,0 +1,14 @@
+{
+  "root": ".",
+  "include": [
+    "*.go"
+  ],
+  "exclude": [
+    "assets",
+    "tmp"
+  ],
+  "build": {
+    "bin": "main",
+    "cmd": "go run main.go"
+  }
+}
