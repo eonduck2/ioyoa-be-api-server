@@ -1,0 +1,13 @@
+# .air.toml
+[build]
+  bin = "main"          
+  cmd = "go run modules/server/server-starter.go"
+  include = ["*.go", "modules/**/*.go", "servers/**/*.go"]
+  exclude = ["tmp"]
+
+[log]
+  time = "true"
+
+[watch]
+  delay = 1000
+  watch = ["*.go", "modules/**/*.go", "servers/**/*.go", "configs/*.yml"]
