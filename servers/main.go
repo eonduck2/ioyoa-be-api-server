@@ -18,7 +18,7 @@ func main() {
     }))
 
     router.GET("/", func(c *gin.Context) {
-        response := gin.H{"message": "Hello, main!"}
+        response := gin.H{"message": "Hello, maingd!"}
         c.JSON(http.StatusOK, response)
     })
 
