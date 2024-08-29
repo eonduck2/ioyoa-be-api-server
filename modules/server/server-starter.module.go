@@ -5,52 +5,45 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"path/filepath"
-	"sync"
 )
 
-func startServer(name, path string, wg *sync.WaitGroup) {
-    defer wg.Done()
-    
-    cmd := exec.Command("air", "-c", filepath.Join(path, ".air.toml"))
-    cmd.Stdout = os.Stdout
-    cmd.Stderr = os.Stderr
-    cmd.Dir = path
-
-    log.Printf("Starting %s server...", name)
-    if err := cmd.Start(); err != nil {
-        log.Printf("Error starting %s server: %v", name, err)
-        return
-    }
-
-    if err := cmd.Wait(); err != nil {
-        log.Printf("%s server exited with error: %v", name, err)
-    }
-}
-
 func main() {
-    var wg sync.WaitGroup
-
     servers := []struct {
         name string
         path string
     }{
-        {"Activity", "../servers/activity-api-server"},
-        {"Channel", "../servers/channel-api-server"},
-        {"Comment", "../servers/comment-api-server"},
-        {"GA", "../servers/ga-api-server"},
-        {"Playlist", "../servers/playlist-api-server"},
-        {"S3", "../servers/s3-api-server"},
-        {"Thumbnail", "../servers/thumbnail-api-server"},
-        {"User", "../servers/user-api-server"},
-        {"Video", "../servers/video-api-server"},
+        {"Main", "servers/main.go"},
+        {"Activity", "servers/activity-api-server/activity-main.go"},
+        {"Channel", "servers/channel-api-server/channel-main.go"},
+        {"Comment", "servers/comment-api-server/comment-main.go"},
+        {"GA", "servers/ga-api-server/ga-main.go"},
+        {"Playlist", "servers/playlist-api-server/playlist-main.go"},
+        {"S3", "servers/s3-api-server/s3-main.go"},
+        {"Thumbnail", "servers/thumbnail-api-server/thumbnail-main.go"},
+        {"User", "servers/user-api-server/user-main.go"},
+        {"Video", "servers/video-api-server/video-main.go"},
     }
 
     for _, server := range servers {
-        wg.Add(1)
-        go startServer(server.name, server.path, &wg)
+        go func(name, path string) {
+            cmd := exec.Command("go", "run", path)
+            cmd.Stdout = os.Stdout
+            cmd.Stderr = os.Stderr
+
+            log.Printf("Starting %s server...", name)
+            if err := cmd.Start(); err != nil {
+                log.Printf("Error starting %s server: %v", name, err)
+                return
+            }
+
+            if err := cmd.Wait(); err != nil {
+                log.Printf("%s server exited with error: %v", name, err)
+            }
+        }(server.name, server.path)
     }
 
-    wg.Wait()
-    fmt.Println("All servers have started")
+    fmt.Println("All servers are starting...")
+    fmt.Println("Press Ctrl+C to stop all servers.")
+
+    select {}
 }

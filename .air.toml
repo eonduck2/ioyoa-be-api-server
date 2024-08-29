@@ -1,7 +1,6 @@
-# .air.toml
 [build]
   bin = "main"          
-  cmd = "go run modules/server/server-starter.go"
+  cmd = "go run modules/server/server-starter.module.go"
   include = ["*.go", "modules/**/*.go", "servers/**/*.go"]
   exclude = ["tmp"]
 

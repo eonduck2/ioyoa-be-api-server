@@ -1,4 +1,4 @@
-module fastyshot
+module ioyoa
 
 go 1.22.5
 
