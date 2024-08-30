@@ -1,29 +1,33 @@
 package main
 
 import (
-	"log"
+	module "ioyoa/modules/utils/env"
+	static "ioyoa/static/env"
 	"net/http"
-	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func main() {
 
-    if err := godotenv.Load(); err != nil {
-        log.Fatalf("Error loading .env file")
-    }
+	envVars := static.EnvListUsedByServer
 
-    ginMode := os.Getenv("GIN_MODE")
+	envValues := make(map[string]string)
 
-    // 환경 모드 설정
-    gin.SetMode(ginMode)
+	for _, envName := range envVars {
+		value := module.EnvLoader(envName)
+		envValues[envName] = value
+	}
+
+    GIN_MODE := module.EnvLoader("GIN_MODE")
+    WL_PROXY := module.EnvLoader("WL_PROXIES")
 
     router := gin.New()
 
-    router.SetTrustedProxies([]string {"192.168.100.134"})
+    gin.SetMode(GIN_MODE)
+
+    router.SetTrustedProxies([]string {WL_PROXY})
 
     router.Use(cors.New(cors.Config{
         AllowOrigins:     []string{"*"},

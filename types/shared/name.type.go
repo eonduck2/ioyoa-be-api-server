@@ -1,3 +1,3 @@
-package shared
+package types
 
-type Name string
+type TName string

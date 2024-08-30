@@ -1,3 +1,3 @@
-package shared
+package types
 
-type Path string
+type TPath string

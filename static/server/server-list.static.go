@@ -1,10 +1,10 @@
-package serverList
+package static
 
 import (
-	"ioyoa/types/static/server"
+	types "ioyoa/types/static/server"
 )
 
-var ServerList = []server.Server{
+var ServerList = []types.TServer{
 	{Name:"Main", Path: "./servers/main.go"},
 	{Name:"Activity", Path: "./servers/activity-api-server/activity-main.go"},
 	{Name:"Channel", Path:"./servers/channel-api-server/channel-main.go"},

@@ -1,8 +1,10 @@
-package server
+package types
 
-import "ioyoa/types/shared"
+import (
+	types "ioyoa/types/shared"
+)
 
-type Server struct {
-	Name shared.Name
-	Path shared.Path
+type TServer struct {
+	Name types.TName
+	Path types.TPath
 }
