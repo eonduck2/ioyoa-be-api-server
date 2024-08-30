@@ -15,6 +15,8 @@ func main() {
 
 	envValues := make(map[string]string)
 
+
+
 	for _, envName := range envVars {
 		value := module.EnvLoader(envName)
 		envValues[envName] = value

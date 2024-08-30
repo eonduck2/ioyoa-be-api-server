@@ -1,0 +1,2 @@
+# Ignore .env file only in the root directory
+.env
