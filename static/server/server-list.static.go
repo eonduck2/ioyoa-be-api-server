@@ -1,4 +1,4 @@
-package static
+package server
 
 import (
 	types "ioyoa/types/static/server"

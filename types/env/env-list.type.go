@@ -1,5 +1,12 @@
 package types
 
-import types "ioyoa/types/shared/data-types"
+import (
+	"ioyoa/types/env/gin"
+	"ioyoa/types/env/proxy"
+)
 
-type TEnvList types.TStringSlice
+// TEnvList 구조체를 정의합니다.
+type TEnvList struct {
+    GIN_MODE   gin.TGIN_MODE
+    WL_PROXIES proxy.TWL_PROXIES
+}

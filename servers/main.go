@@ -1,8 +1,11 @@
 package main
 
 import (
-	module "ioyoa/modules/utils/env"
-	static "ioyoa/static/env"
+	modulesCors "ioyoa/modules/helper/middleWare/cors"
+	modulesHttpMethod "ioyoa/modules/server/gin/httpMethod"
+	modulesEnv "ioyoa/modules/utils/env"
+	staticEnv "ioyoa/static/env"
+	staticSymbols "ioyoa/static/shared/symbols"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -11,37 +14,21 @@ import (
 
 func main() {
 
-	envVars := static.EnvListUsedByServer
-
-	envValues := make(map[string]string)
-
-
-
-	for _, envName := range envVars {
-		value := module.EnvLoader(envName)
-		envValues[envName] = value
-	}
-
-    GIN_MODE := module.EnvLoader("GIN_MODE")
-    WL_PROXY := module.EnvLoader("WL_PROXIES")
+    GIN_MODE := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.GIN_MODE))
+    WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES))
 
     router := gin.New()
 
     gin.SetMode(GIN_MODE)
 
-    router.SetTrustedProxies([]string {WL_PROXY})
+    router.SetTrustedProxies([]string {WL_PROXIES})
 
-    router.Use(cors.New(cors.Config{
-        AllowOrigins:     []string{"*"},
-        AllowMethods:     []string{"GET", "POST", "OPTIONS"},
-        AllowHeaders:     []string{"Content-Type"},
-        AllowCredentials: true,
-    }))
+    router.Use(cors.New(modulesCors.BasicCorsConfig()))
 
-    router.GET("/", func(c *gin.Context) {
-        response := gin.H{"message": "Hello, maingd!"}
-        c.JSON(http.StatusOK, response)
-    })
+    modulesHttpMethod.GinMethodHandler(router, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
+		response := gin.H{"message": "Hello, maingd!"}
+		c.JSON(http.StatusOK, response)
+	})
 
     router.Run(":8080")
 }

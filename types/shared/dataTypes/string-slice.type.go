@@ -1,3 +1,3 @@
-package types
+package dataTypes
 
 type TStringSlice []string
