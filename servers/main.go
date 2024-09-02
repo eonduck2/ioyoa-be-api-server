@@ -16,19 +16,20 @@ func main() {
 
     GIN_MODE := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.GIN_MODE))
     WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES))
+    MAIN_URL := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.MAIN_URL))
 
-    router := gin.New()
+    r := gin.New()
 
     gin.SetMode(GIN_MODE)
 
-    router.SetTrustedProxies([]string {WL_PROXIES})
+    r.SetTrustedProxies([]string {WL_PROXIES})
 
-    router.Use(cors.New(modulesCors.BasicCorsConfig()))
+    r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
-    modulesHttpMethod.GinMethodHandler(router, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
+    modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
 		response := gin.H{"message": "Hello, maingd!"}
-		c.JSON(http.StatusOK, response)
+	    c.JSON(http.StatusOK, response)
 	})
 
-    router.Run(":8080")
+    r.Run(MAIN_URL)
 }
