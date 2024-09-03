@@ -14,13 +14,14 @@ import (
 )
 
 func main() {
-	GIN_MODE :=	helperEnv.EnvModeChecker()
-    WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
-    EP_MAIN := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_MAIN), GIN_MODE)
 
-    r := gin.New()
+    GIN_MODE :=	helperEnv.EnvModeChecker()
+    WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
+    EP_VIDEO := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_VIDEO), GIN_MODE)
 
     gin.SetMode(GIN_MODE)
+    
+    r := gin.New()
 
     r.SetTrustedProxies([]string {WL_PROXIES})
 
@@ -31,5 +32,5 @@ func main() {
 	    c.JSON(http.StatusOK, response)
 	})
 
-    r.Run(EP_MAIN)
+    r.Run(EP_VIDEO)
 }
