@@ -1,4 +1,4 @@
-package conten
+package content
 
 const (
 	ContentType = "Content-Type"
