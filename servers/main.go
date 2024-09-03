@@ -1,6 +1,7 @@
 package main
 
 import (
+	helperEnv "ioyoa/modules/helper/env"
 	modulesCors "ioyoa/modules/helper/middleWare/cors"
 	modulesHttpMethod "ioyoa/modules/server/gin/httpMethod"
 	modulesEnv "ioyoa/modules/utils/env"
@@ -13,10 +14,9 @@ import (
 )
 
 func main() {
-
-    GIN_MODE := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.GIN_MODE))
-    WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES))
-    MAIN_URL := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.MAIN_URL))
+	GIN_MODE :=	helperEnv.EnvModeChecker()
+    WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
+    MAIN_URL := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.MAIN_URL), GIN_MODE)
 
     r := gin.New()
 
