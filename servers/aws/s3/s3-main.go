@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	helperEnv "ioyoa/modules/helper/env"
 	modulesCors "ioyoa/modules/helper/middleWare/cors"
 	modulesHttpMethod "ioyoa/modules/server/gin/httpMethod"
@@ -20,8 +19,6 @@ func main() {
     WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
     EP_S3 := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_S3), GIN_MODE)
 
-    fmt.Println(GIN_MODE, "ㅁㄴㅇㅁㄴㅇ")
-
     gin.SetMode(GIN_MODE)
     
     r := gin.New()
@@ -31,7 +28,7 @@ func main() {
     r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
     modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
-		response := gin.H{"message": "Hello, maingd!"}
+		response := gin.H{"message": "Hello, s3!"}
 	    c.JSON(http.StatusOK, response)
 	})
 

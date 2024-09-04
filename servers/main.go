@@ -18,9 +18,9 @@ func main() {
     WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
     EP_MAIN := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_MAIN), GIN_MODE)
 
-    r := gin.New()
-
     gin.SetMode(GIN_MODE)
+
+    r := gin.New()
 
     r.SetTrustedProxies([]string {WL_PROXIES})
 
