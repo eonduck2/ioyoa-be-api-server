@@ -27,7 +27,7 @@ func main() {
     r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
     modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
-		response := gin.H{"message": "Hello, maingd!"}
+		response := gin.H{"route": modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_VIDEO),GIN_MODE)}
 	    c.JSON(http.StatusOK, response)
 	})
 
