@@ -7,6 +7,7 @@ import (
 	modulesEnv "ioyoa/modules/utils/env"
 	staticEnv "ioyoa/static/env"
 	staticSymbols "ioyoa/static/shared/symbols"
+	staticUrl "ioyoa/static/shared/url"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -28,7 +29,7 @@ func main() {
     r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
     modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
-		response := gin.H{"message": "Hello, video!"}
+		response := gin.H{staticUrl.Route: "Hello, video!"}
 	    c.JSON(http.StatusOK, response)
 	})
 
