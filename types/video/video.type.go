@@ -8,6 +8,6 @@ import (
 
 type TVideo struct {
 	essential essential.TEssential
-	filter filter.TFilter
-	optional optional.TOptional
+	filter *filter.TFilter
+	optional *optional.TOptional
 }
