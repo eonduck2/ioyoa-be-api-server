@@ -17,3 +17,8 @@ var EnvListUsedByServer types.TEnvList = types.TEnvList{
 	EP_VIDEO: "EP_VIDEO",
 }
 
+const (
+	YT_API_URL = "YT_API_URL"
+
+	YT_API_KEY = "YT_API_KEY"
+)
