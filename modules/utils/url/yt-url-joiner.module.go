@@ -1,23 +1,12 @@
 package url
 
 import (
-	"ioyoa/modules/utils/url"
-	"testing"
+	"ioyoa/modules/utils/env"
+	staticYtEnv "ioyoa/static/env"
+	"path"
 )
 
-func TestYtUrlJoiner(t *testing.T) {
-	first := "test.com"
-	second := "hola"
-	third := "cool"
-
-	// 예상 결과
-	expected := "test.com/hola/cool"
-
-	// UrlJoiner 함수 호출
-	result := url.UrlJoiner(first, second, third)
-
-	// 결과 확인
-	if result != expected {
-		t.Errorf("UrlJoiner() = %v, want %v", result, expected)
-	}
+func YtUrlJoiner(paths ...string) string {
+	env.EnvLoader(staticYtEnv.YT_API_KEY)
+	return path.Join(paths...)
 }
