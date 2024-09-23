@@ -28,25 +28,6 @@ func main() {
 
     r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
-    // modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context) {
-    //     url := "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&maxResults=10&regionCode=kr&key=AIzaSyAdAHdRseIVBU9_40L103fmzt4NPRF4GzU"
-
-    //     resp, err := http.Get(url)
-    //     if err != nil {
-    //         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch data from YouTube"})
-    //         return
-    //     }
-    //     defer resp.Body.Close()
-
-    //     body, err := ioutil.ReadAll(resp.Body)
-    //     if err != nil {
-    //         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response body"})
-    //         return
-    //     }
-
-    //     c.Data(http.StatusOK, "application/json", body)
-    // })
-
     modulesHttpMethod.GinMethodHandler(r, http.MethodPost, staticSymbols.ForwardSlash, func(c *gin.Context) {
         var requestBody map[string]string
         if err := c.BindJSON(&requestBody); err != nil {
