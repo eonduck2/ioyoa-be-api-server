@@ -19,7 +19,7 @@ func main() {
     GIN_MODE := helperEnv.EnvModeChecker()
     WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
     EP_VIDEO := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_VIDEO), GIN_MODE)
-
+ 
     gin.SetMode(GIN_MODE)
     
     r := gin.New()
@@ -27,6 +27,12 @@ func main() {
     r.SetTrustedProxies([]string{WL_PROXIES})
 
     r.Use(cors.New(modulesCors.BasicCorsConfig()))
+
+    modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context){
+        c.JSON(http.StatusOK, gin.H{
+            "message": "Hello World",
+        })
+    })
 
     modulesHttpMethod.GinMethodHandler(r, http.MethodPost, staticSymbols.ForwardSlash, func(c *gin.Context) {
         var requestBody map[string]string
