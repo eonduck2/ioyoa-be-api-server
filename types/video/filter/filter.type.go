@@ -1,12 +1,12 @@
 package filter
 
 import (
-	ytid "ioyoa/types/shared/ytId"
+	id "ioyoa/types/shared/id"
 	"ioyoa/types/video/filter/fields"
 )
 
 type TFilter struct {
 	chart *fields.TChart
-	id *ytid.TId
+	id *id.TId
 	myRating *fields.TMyRating
 }

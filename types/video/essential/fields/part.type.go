@@ -1,18 +1,18 @@
 package fields
 
 import (
+	id "ioyoa/types/shared/id"
 	ytfields "ioyoa/types/shared/ytFields"
 	"ioyoa/types/shared/ytFields/core"
 	"ioyoa/types/shared/ytFields/details"
 	"ioyoa/types/shared/ytFields/location"
 	"ioyoa/types/shared/ytFields/status"
-	ytid "ioyoa/types/shared/ytId"
 )
 
 type TPart struct {
 	ContentDetails       *details.TContentDetails
 	FileDetails          *details.TFileDetails
-	Id                   *ytid.TId
+	Id                   *id.TId
 	LiveStreamingDetails *details.TLiveStreamingDetails
 	Localizations        *location.TLocalizations
 	Player               *ytfields.TPlayer

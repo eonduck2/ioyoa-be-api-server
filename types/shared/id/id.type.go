@@ -1,3 +1,3 @@
-package ytid
+package id
 
 type TId string

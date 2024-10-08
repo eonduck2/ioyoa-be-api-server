@@ -1,11 +1,11 @@
 package optional
 
 import (
+	ytid "ioyoa/types/shared/id/yt"
 	ytfields "ioyoa/types/shared/ytFields"
 	"ioyoa/types/shared/ytFields/maximum"
 	"ioyoa/types/shared/ytFields/page"
 	"ioyoa/types/shared/ytFields/region"
-	ytid "ioyoa/types/shared/ytId"
 )
 
 type TOptional struct {
