@@ -4,6 +4,24 @@ tasks:
   run:
     cmds:
       - go run modules/server/server-starter.module.go
+
   test:
     cmds:
       - go test ./...
+
+  redis-start:
+    cmds:
+      - brew services start redis
+
+  redis-stop:
+    cmds:
+      - brew services stop redis
+
+  redis-connect:
+    cmds:
+      - go run redis/connect/redis-connector.go
+
+  redis-disconnect:
+    cmds:
+      - go run redis/connect/disconnect/redis-disconnector.go
+
