@@ -22,3 +22,11 @@ const (
 
 	YT_API_KEY = "YT_API_KEY"
 )
+
+const (
+	REDIS_HOST = "REDIS_HOST"
+
+	REDIS_PORT = "REDIS_PORT"
+
+	REDIS_PW = "REDIS_PW"
+)

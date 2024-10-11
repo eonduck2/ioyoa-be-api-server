@@ -1,8 +1,11 @@
-package insert
+package main
 
 import (
 	"context"
 	"fmt"
+	helperEnv "ioyoa/modules/helper/env"
+	utilsEnv "ioyoa/modules/utils/env"
+	staticEnv "ioyoa/static/env"
 	"log"
 
 	"github.com/go-redis/redis/v8"
@@ -11,18 +14,22 @@ import (
 var ctx = context.Background()
 
 func main() {
-    // Redis 클라이언트 초기화
+
+    GIN_MODE := helperEnv.EnvModeChecker()
+    RDB_HOST := utilsEnv.EnvLoader(staticEnv.REDIS_HOST, GIN_MODE)
+    RDB_PORT := utilsEnv.EnvLoader(staticEnv.REDIS_PORT, GIN_MODE)
+    RDB_PW := utilsEnv.EnvLoader(staticEnv.REDIS_PW, GIN_MODE)
     rdb := redis.NewClient(&redis.Options{
-        Addr:     "127.0.0.1:6379", // Redis 서버 주소
-        Password: "",                // 비밀번호 (없으면 비워둠)
-        DB:       0,                 // 기본 DB 사용
+        Addr:        RDB_HOST + RDB_PORT,
+        Password:    RDB_PW,
+        DB:          0,    
     })
+    
 
-    // 임의의 데이터 저장
     key := "user:1001"
-    value := "Alice, 25, New York" // 예: 사용자 정보
+    value := "Alice, ddd25, New Yoqwdeasdsadsark" 
 
-    err := rdb.Set(ctx, key, value, 0).Err() // 0은 만료 시간 없음
+    err := rdb.Set(ctx, key, value, 0).Err() 
     if err != nil {
         log.Fatalf("데이터 저장 실패: %v", err)
     }

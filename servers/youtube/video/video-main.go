@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	helperEnv "ioyoa/modules/helper/env"
@@ -54,12 +54,14 @@ func main() {
         }
         defer resp.Body.Close()
 
-        body, err := ioutil.ReadAll(resp.Body)
+        body, err := io.ReadAll(resp.Body)
         if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response body"})
             return
         }
 
+        // here
+        
         c.Data(http.StatusOK, "application/json", body)
     })
 
