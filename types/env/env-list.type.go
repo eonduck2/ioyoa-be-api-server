@@ -22,4 +22,5 @@ type TEnvList struct {
 	EP_THUMBNAIL youtube.THUMBNAIL_URL
 	EP_USER youtube.USER_URL
 	EP_VIDEO youtube.VIDEO_URL
+	EP_SEARCH youtube.SEARCH_URL
 }

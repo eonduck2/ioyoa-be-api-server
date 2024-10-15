@@ -19,49 +19,41 @@ func main() {
     GIN_MODE := helperEnv.EnvModeChecker()
     WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
     EP_VIDEO := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_VIDEO), GIN_MODE)
- 
+
     gin.SetMode(GIN_MODE)
-    
+
     r := gin.New()
 
     r.SetTrustedProxies([]string{WL_PROXIES})
 
     r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
-    modulesHttpMethod.GinMethodHandler(r, http.MethodGet, staticSymbols.ForwardSlash, func(c *gin.Context){
-        c.JSON(http.StatusOK, gin.H{
-            "message": "Hello World",
-        })
-    })
-
     modulesHttpMethod.GinMethodHandler(r, http.MethodPost, staticSymbols.ForwardSlash, func(c *gin.Context) {
         var requestBody map[string]string
         if err := c.BindJSON(&requestBody); err != nil {
-            c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+            c.JSON(http.StatusBadRequest, gin.H{"error": "잘못된 요청 본문입니다."})
             return
         }
-        
+
         url, exists := requestBody["url"]
         if !exists {
-            c.JSON(http.StatusBadRequest, gin.H{"error": "URL not provided"})
+            c.JSON(http.StatusBadRequest, gin.H{"error": "URL이 제공되지 않았습니다."})
             return
         }
 
         resp, err := http.Get(url)
         if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch data from YouTube"})
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "YouTube에서 데이터를 가져오는 데 실패했습니다."})
             return
         }
         defer resp.Body.Close()
 
         body, err := io.ReadAll(resp.Body)
         if err != nil {
-            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response body"})
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "응답 본문을 읽는 데 실패했습니다."})
             return
         }
 
-        // here
-        
         c.Data(http.StatusOK, "application/json", body)
     })
 

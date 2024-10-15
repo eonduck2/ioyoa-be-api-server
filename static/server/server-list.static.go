@@ -15,4 +15,5 @@ var ServerList = []types.TServer{
 	{Name:"Thumbnail", Path:"./servers/youtube/thumbnail/thumbnail-main.go"},
 	{Name:"User", Path:"./servers/youtube/user/user-main.go"},
 	{Name:"Video", Path:"./servers/youtube/video/video-main.go"},
+	{Name:"Search", Path:"./servers/youtube/search/search-main.go"},
 }
