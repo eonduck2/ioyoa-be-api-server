@@ -18,7 +18,7 @@ import (
 func main() {
     GIN_MODE := helperEnv.EnvModeChecker()
     WL_PROXIES := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.WL_PROXIES), GIN_MODE)
-    EP_SEARCH := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_SEARCH), GIN_MODE)
+    EP_COMMENT := modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_COMMENT), GIN_MODE)
 
     gin.SetMode(GIN_MODE)
 
@@ -61,5 +61,5 @@ func main() {
         c.Data(http.StatusOK, "application/json", body)
     })
 
-    r.Run(EP_SEARCH)
+    r.Run(EP_COMMENT)
 }
