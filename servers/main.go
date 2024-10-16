@@ -32,6 +32,11 @@ func main() {
 
 	r.Use(cors.New(modulesCors.BasicCorsConfig()))
 
+	// GET 요청 처리: / 경로에 대해 "Hello World" 반환
+	r.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello World")
+	})
+
 	modulesHttpMethod.GinMethodHandler(r, http.MethodPost, staticSymbols.ForwardSlash, func(c *gin.Context) {
 		var requestBody RequestBody
 
