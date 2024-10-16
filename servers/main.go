@@ -41,15 +41,18 @@ func main() {
 		}
 
 		switch requestBody.ServerType {
-		case "video":
+		case "videos":
 			response := gin.H{staticUrl.Route: modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_VIDEO), GIN_MODE)}
 			c.JSON(http.StatusOK, response)
 		case "search":
 			response := gin.H{staticUrl.Route: modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_SEARCH), GIN_MODE)}
 			c.JSON(http.StatusOK, response)
-		case "channel":
+		case "channels":
 			response := gin.H{staticUrl.Route: modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_CHANNEL), GIN_MODE)}
 			c.JSON(http.StatusOK, response)
+		case "redis":
+			response := gin.H{staticUrl.Route: modulesEnv.EnvLoader(string(staticEnv.EnvListUsedByServer.EP_REDIS), GIN_MODE)}
+			c.JSON(http.StatusOK, response)	
 		default:
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid serverType"})
 		}

@@ -23,4 +23,5 @@ type TEnvList struct {
 	EP_USER youtube.USER_URL
 	EP_VIDEO youtube.VIDEO_URL
 	EP_SEARCH youtube.SEARCH_URL
+	EP_REDIS string
 }

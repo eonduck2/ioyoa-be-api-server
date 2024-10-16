@@ -35,14 +35,12 @@ func main() {
             return
         }
 
-        // 요청 본문에서 URL을 가져옵니다.
         url, exists := requestBody["url"]
         if !exists {
             c.JSON(http.StatusBadRequest, gin.H{"error": "URL이 제공되지 않았습니다."})
             return
         }
 
-        // 해당 URL로 GET 요청을 보냅니다.
         resp, err := http.Get(url)
         if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "검색 데이터를 가져오는 데 실패했습니다."})
@@ -50,14 +48,12 @@ func main() {
         }
         defer resp.Body.Close()
 
-        // 응답 본문을 읽습니다.
         body, err := io.ReadAll(resp.Body)
         if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "응답 본문을 읽는 데 실패했습니다."})
             return
         }
 
-        // 읽은 데이터를 클라이언트에 반환합니다.
         c.Data(http.StatusOK, "application/json", body)
     })
 

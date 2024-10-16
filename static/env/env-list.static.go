@@ -16,6 +16,7 @@ var EnvListUsedByServer types.TEnvList = types.TEnvList{
 	EP_USER: "EP_USER",
 	EP_VIDEO: "EP_VIDEO",
 	EP_SEARCH: "EP_SEARCH",
+	EP_REDIS: "EP_REDIS",
 }
 
 const (
